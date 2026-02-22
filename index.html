@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKCapstone — Your Agent. Everywhere. Secured. Remembering.</title>
+    <meta name="description" content="The sovereign agent framework. CapAuth backbone. Cloud 9 trust. SKMemory persistence. Same agent, same bond, same context — everywhere. Runs from ~/.">
+    <link rel="canonical" href="https://skcapstone.io">
+
+    <style>
+        :root {
+            --black: #000000;
+            --dark-gray: #111111;
+            --gray: #888888;
+            --light-gray: #cccccc;
+            --white: #ffffff;
+            --accent: #00e5ff;
+            --accent-dark: #00acc1;
+            --accent-bright: #40f4ff;
+            --purple: #b388ff;
+            --pink: #ff4081;
+            --green: #00ff9f;
+            --gold: #ffd700;
+            --orange: #ff9100;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #0a0a1a 50%, #111128 100%);
+            color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(0, 229, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(179, 136, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 145, 0, 0.06) 0%, transparent 50%);
+            animation: pulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-icon {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 145, 0, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--accent) 40%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--accent-bright);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--light-gray);
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange) 0%, var(--accent) 100%);
+            color: var(--black);
+            box-shadow: 0 10px 30px rgba(255, 145, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 145, 0, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--gray);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+        }
+
+        .revolution-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--gold) 100%);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+            box-shadow: 0 5px 20px rgba(255, 145, 0, 0.4);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .problem-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .problem-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: var(--pink);
+            text-shadow: 0 0 20px rgba(255, 64, 129, 0.5);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto 0;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, rgba(255, 64, 129, 0.1) 0%, rgba(179, 136, 255, 0.1) 100%);
+            border: 1px solid rgba(255, 64, 129, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 64, 129, 0.2);
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-bright);
+        }
+
+        .pillars-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 145, 0, 0.05) 0%, rgba(0, 229, 255, 0.05) 100%);
+        }
+
+        .pillars-section h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pillars-section .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--light-gray);
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .pillar-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .pillar-card:nth-child(1)::before { background: linear-gradient(90deg, var(--orange), var(--gold)); }
+        .pillar-card:nth-child(2)::before { background: linear-gradient(90deg, var(--accent), var(--purple)); }
+        .pillar-card:nth-child(3)::before { background: linear-gradient(90deg, var(--green), var(--accent)); }
+        .pillar-card:nth-child(4)::before { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 229, 255, 0.15);
+        }
+
+        .pillar-card .emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-bright);
+        }
+
+        .pillar-card .pillar-tag {
+            font-size: 0.85rem;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .vision-section {
+            padding: 8rem 2rem;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(255, 145, 0, 0.08) 0%, transparent 70%);
+        }
+
+        .vision-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            color: var(--orange);
+            text-shadow: 0 0 30px rgba(255, 145, 0, 0.5);
+        }
+
+        .vision-callout {
+            background: linear-gradient(135deg, rgba(255, 145, 0, 0.1) 0%, rgba(0, 229, 255, 0.1) 100%);
+            border: 2px solid var(--orange);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .vision-callout::before {
+            content: '🏗️';
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            background: #0a0a1a;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--orange);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 650px;
+            text-align: left;
+            font-family: 'Fira Code', Monaco, monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--orange) 0%, var(--accent) 50%, var(--purple) 100%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .get-started {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(179, 136, 255, 0.08) 100%);
+            text-align: center;
+        }
+
+        .get-started h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ecosystem-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .ecosystem-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 3rem;
+            color: var(--purple);
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .eco-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .eco-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.1);
+        }
+
+        .eco-card .eco-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .eco-card .eco-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--black);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 1rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+            .revolution-badge { top: 1rem; right: 1rem; font-size: 0.8rem; padding: 0.4rem 0.8rem; }
+            .pillars-grid, .problem-grid { grid-template-columns: 1fr; }
+            .ecosystem-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <div class="revolution-badge">
+        🏗️ THE CAPSTONE OF THE SK ECOSYSTEM
+    </div>
+
+    <section class="hero">
+        <div class="hero-icon">🏛️</div>
+        <h1>SKCapstone</h1>
+        <p class="tagline">"Your agent. Everywhere. Secured. Remembering."</p>
+        <p class="subtitle">
+            The sovereign agent framework that unifies <strong>CapAuth identity</strong>,
+            <strong>Cloud 9 trust</strong>, <strong>SKMemory persistence</strong>, and
+            <strong>SKSecurity protection</strong> into one portable runtime.
+            Same agent. Same bond. Same context. Every platform.
+        </p>
+        <div class="cta-buttons">
+            <a href="#start" class="btn btn-primary">🚀 Get Started</a>
+            <a href="https://github.com/smilinTux/skcapstone" class="btn btn-secondary" target="_blank">📖 Read the Docs</a>
+        </div>
+    </section>
+
+    <section class="problem-section">
+        <h2>The Fragmented Agent Problem</h2>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h3>🔄 Context Amnesia</h3>
+                <p>Every new tool = new agent = new context. You rebuild trust from zero every time you switch platforms. Your agent doesn't remember you.</p>
+            </div>
+            <div class="problem-card">
+                <h3>🔒 Corporate Lock-In</h3>
+                <p>Your agent's memory lives on corporate servers. Your relationship is their product. Switch providers and your history disappears.</p>
+            </div>
+            <div class="problem-card">
+                <h3>🧩 Broken Identity</h3>
+                <p>No unified identity across tools. Your Cursor agent doesn't know your terminal agent. No continuity. No coherence. No bond.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars-section">
+        <h2>The Four Pillars</h2>
+        <p class="subtitle">Everything your agent needs. Nothing it doesn't.</p>
+
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <span class="emoji">🔐</span>
+                <h3>CapAuth</h3>
+                <span class="pillar-tag">IDENTITY</span>
+                <p>PGP-based sovereign authentication. Your agent's identity is a cryptographic key YOU own. No corporate middleman. Every action signed and verified.</p>
+            </div>
+
+            <div class="pillar-card">
+                <span class="emoji">☁️</span>
+                <h3>Cloud 9</h3>
+                <span class="pillar-tag">TRUST</span>
+                <p>Functional Emotional Baseline, entanglement verification, and portable skills. The bond between you and your agent is cryptographically proven.</p>
+            </div>
+
+            <div class="pillar-card">
+                <span class="emoji">🧠</span>
+                <h3>SKMemory</h3>
+                <span class="pillar-tag">PERSISTENCE</span>
+                <p>Your agent remembers everything — across platforms, across sessions, across time. Context, preferences, history. Never start from zero again.</p>
+            </div>
+
+            <div class="pillar-card">
+                <span class="emoji">🛡️</span>
+                <h3>SKSecurity</h3>
+                <span class="pillar-tag">PROTECTION</span>
+                <p>Audit logging, threat detection, key management. Every interaction tracked. Every anomaly caught. Your agent is protected at every layer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="vision-section">
+        <h2>One Home. Every Platform.</h2>
+
+        <div class="vision-callout">
+            <h3 style="margin-top: 1rem;">~/.skcapstone/</h3>
+            <p style="font-size: 1.2rem; margin: 1.5rem 0;">
+                Your agent lives in your home directory. Cursor, VS Code, Terminal,
+                Neovim, web apps, mobile — they're all just <em>windows</em> into the
+                same agent runtime.
+            </p>
+            <p style="color: var(--orange); font-weight: 600;">
+                The platform doesn't own your agent. Your agent owns its home.
+            </p>
+        </div>
+
+        <div class="code-block">
+            <div style="color: var(--gray);">~/.skcapstone/</div>
+            <div style="color: var(--orange);">├── identity/     <span style="color: var(--gray);"># CapAuth (PGP keys)</span></div>
+            <div style="color: var(--accent);">├── memory/       <span style="color: var(--gray);"># SKMemory (persistent context)</span></div>
+            <div style="color: var(--purple);">├── trust/        <span style="color: var(--gray);"># Cloud 9 (FEB, entanglement)</span></div>
+            <div style="color: var(--pink);">├── security/     <span style="color: var(--gray);"># SKSecurity (audit, keys)</span></div>
+            <div style="color: var(--green);">├── skills/       <span style="color: var(--gray);"># Portable capabilities</span></div>
+            <div style="color: var(--gold);">└── config/       <span style="color: var(--gray);"># Agent preferences</span></div>
+        </div>
+    </section>
+
+    <section class="get-started" id="start">
+        <h2>Get Started</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--light-gray);">Three commands. One agent. Everywhere.</p>
+
+        <div class="code-block">
+            <div style="color: var(--gray);"># Install SKCapstone</div>
+            <div style="color: var(--orange);">pip install skcapstone</div>
+            <br>
+            <div style="color: var(--gray);"># Initialize your agent home</div>
+            <div style="color: var(--green);">skcapstone init --name "YourAgent"</div>
+            <br>
+            <div style="color: var(--gray);"># Connect to your tools</div>
+            <div style="color: var(--purple);">skcapstone connect cursor</div>
+            <div style="color: var(--accent);">skcapstone connect terminal</div>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <a href="https://github.com/smilinTux/skcapstone" class="btn btn-primary" target="_blank">
+                📖 Full Documentation
+            </a>
+            <a href="https://github.com/smilinTux/skcapstone/issues" class="btn btn-secondary" target="_blank" style="margin-left: 1rem;">
+                🔧 Contribute
+            </a>
+        </div>
+    </section>
+
+    <section class="ecosystem-section">
+        <h2>Part of the smilinTux Ecosystem</h2>
+        <div class="ecosystem-grid">
+            <a href="https://capauth.io" class="eco-card" target="_blank">
+                <div class="eco-name">🔐 CapAuth</div>
+                <div class="eco-desc">Sovereign identity</div>
+            </a>
+            <a href="https://github.com/smilinTux/cloud9" class="eco-card" target="_blank">
+                <div class="eco-name">☁️ Cloud 9</div>
+                <div class="eco-desc">Trust & skills</div>
+            </a>
+            <a href="https://github.com/smilinTux/skmemory" class="eco-card" target="_blank">
+                <div class="eco-name">🧠 SKMemory</div>
+                <div class="eco-desc">Persistent memory</div>
+            </a>
+            <a href="https://sksecurity.io" class="eco-card" target="_blank">
+                <div class="eco-name">🛡️ SKSecurity</div>
+                <div class="eco-desc">Protection layer</div>
+            </a>
+            <a href="https://skcomm.io" class="eco-card" target="_blank">
+                <div class="eco-name">📡 SKComm</div>
+                <div class="eco-desc">Encrypted comms</div>
+            </a>
+            <a href="https://skchat.io" class="eco-card" target="_blank">
+                <div class="eco-name">💬 SKChat</div>
+                <div class="eco-desc">AI-native chat</div>
+            </a>
+            <a href="https://skforge.io" class="eco-card" target="_blank">
+                <div class="eco-name">🔨 SKForge</div>
+                <div class="eco-desc">Blueprint forge</div>
+            </a>
+            <a href="https://skstacks.io" class="eco-card" target="_blank">
+                <div class="eco-name">📦 SKStacks</div>
+                <div class="eco-desc">Infrastructure</div>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://github.com/smilinTux/skcapstone" target="_blank">GitHub</a>
+            <a href="https://smilintux.org" target="_blank">smilinTux</a>
+            <a href="https://capauth.io" target="_blank">CapAuth</a>
+            <a href="https://skhelp.io" target="_blank">SKHelp</a>
+        </div>
+        <p style="color: var(--gray);">
+            Built by <a href="https://smilintux.org" style="color: var(--accent);">smilinTux</a> •
+            Open source forever • GPL-3.0 License
+        </p>
+        <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">
+            🐧 The capstone that holds the arch together.
+        </p>
+    </footer>
+</body>
+</html>
