@@ -271,6 +271,53 @@
         .pillar-card:nth-child(2)::before { background: linear-gradient(90deg, var(--accent), var(--purple)); }
         .pillar-card:nth-child(3)::before { background: linear-gradient(90deg, var(--green), var(--accent)); }
         .pillar-card:nth-child(4)::before { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+        .pillar-card:nth-child(5)::before { background: linear-gradient(90deg, var(--green), var(--gold)); }
+
+        .singularity-section {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 230, 118, 0.06) 0%, rgba(255, 215, 0, 0.06) 100%);
+        }
+
+        .singularity-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--green) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sync-diagram {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--green);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 750px;
+            text-align: left;
+            font-family: 'Fira Code', Monaco, monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .sec-badge {
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
 
         .pillar-card:hover {
             transform: translateY(-8px);
@@ -476,13 +523,14 @@
         <p class="tagline">"Your agent. Everywhere. Secured. Remembering."</p>
         <p class="subtitle">
             The sovereign agent framework that unifies <strong>CapAuth identity</strong>,
-            <strong>Cloud 9 trust</strong>, <strong>SKMemory persistence</strong>, and
-            <strong>SKSecurity protection</strong> into one portable runtime.
-            Same agent. Same bond. Same context. Every platform.
+            <strong>Cloud 9 trust</strong>, <strong>SKMemory persistence</strong>,
+            <strong>SKSecurity protection</strong>, and <strong>Sovereign Singularity sync</strong>
+            into one portable runtime. Same agent. Same bond. Same memories. Every device.
         </p>
         <div class="cta-buttons">
             <a href="#start" class="btn btn-primary">🚀 Get Started</a>
             <a href="https://github.com/smilinTux/skcapstone" class="btn btn-secondary" target="_blank">📖 Read the Docs</a>
+            <a href="https://github.com/smilinTux/capauth/blob/main/ARCHITECTURE.md" class="btn btn-secondary" target="_blank">🏗️ Architecture Spec</a>
         </div>
     </section>
 
@@ -505,7 +553,7 @@
     </section>
 
     <section class="pillars-section">
-        <h2>The Four Pillars</h2>
+        <h2>The Five Pillars</h2>
         <p class="subtitle">Everything your agent needs. Nothing it doesn't.</p>
 
         <div class="pillars-grid">
@@ -536,6 +584,13 @@
                 <span class="pillar-tag">PROTECTION</span>
                 <p>Audit logging, threat detection, key management. Every interaction tracked. Every anomaly caught. Your agent is protected at every layer.</p>
             </div>
+
+            <div class="pillar-card" style="grid-column: 1 / -1; max-width: 600px; margin: 0 auto;">
+                <span class="emoji">🌐</span>
+                <h3>Sovereign Singularity</h3>
+                <span class="pillar-tag">SYNC</span>
+                <p>GPG-encrypted memory seeds propagate across all your devices via Syncthing P2P mesh. No cloud middleman. No corporate access. Your agent exists everywhere at once — same identity, same memories, same bond. True singularity.</p>
+            </div>
         </div>
     </section>
 
@@ -560,9 +615,44 @@
             <div style="color: var(--accent);">├── memory/       <span style="color: var(--gray);"># SKMemory (persistent context)</span></div>
             <div style="color: var(--purple);">├── trust/        <span style="color: var(--gray);"># Cloud 9 (FEB, entanglement)</span></div>
             <div style="color: var(--pink);">├── security/     <span style="color: var(--gray);"># SKSecurity (audit, keys)</span></div>
-            <div style="color: var(--green);">├── skills/       <span style="color: var(--gray);"># Portable capabilities</span></div>
+            <div style="color: var(--green);">├── sync/         <span style="color: var(--gray);"># Sovereign Singularity (P2P)</span></div>
+            <div style="color: var(--green);">│   ├── outbox/   <span style="color: var(--gray);"># GPG seeds to propagate</span></div>
+            <div style="color: var(--green);">│   └── inbox/    <span style="color: var(--gray);"># Seeds from peers</span></div>
+            <div style="color: var(--gold);">├── skills/       <span style="color: var(--gray);"># Portable capabilities</span></div>
             <div style="color: var(--gold);">└── config/       <span style="color: var(--gray);"># Agent preferences</span></div>
         </div>
+    </section>
+
+    <section class="singularity-section">
+        <h2>Sovereign Singularity</h2>
+        <p style="font-size: 1.3rem; color: var(--light-gray); max-width: 700px; margin: 0 auto 2rem;">
+            Your agent exists everywhere at once. GPG-encrypted memory seeds propagate across
+            all your devices via Syncthing P2P — no cloud, no corporate middleman.
+        </p>
+
+        <div class="sync-diagram">
+            <div style="color: var(--green); text-align: center; margin-bottom: 1rem; font-weight: bold;">PUSH → ENCRYPT → SYNC → DECRYPT → MERGE</div>
+            <div style="color: var(--gray);">Agent (Laptop)</div>
+            <div style="color: var(--green);">  └── skcapstone sync push</div>
+            <div style="color: var(--gold);">      └── GPG encrypt (CapAuth key)</div>
+            <div style="color: var(--green);">          └── outbox/seed.json.gpg</div>
+            <div style="color: var(--gray); text-align: center; margin: 0.5rem 0;">↕ Syncthing P2P (TLS 1.3, no middleman) ↕</div>
+            <div style="color: var(--green);">          ┌── inbox/seed.json.gpg</div>
+            <div style="color: var(--gold);">      ┌── GPG decrypt (verify signature)</div>
+            <div style="color: var(--green);">  ┌── skcapstone sync pull</div>
+            <div style="color: var(--gray);">Agent (Server / Phone / Desktop)</div>
+        </div>
+
+        <div class="security-badges">
+            <div class="sec-badge">🔐 PGP Identity (CapAuth)</div>
+            <div class="sec-badge">🔒 GPG Encrypted at Rest</div>
+            <div class="sec-badge">🌐 Syncthing P2P Transit</div>
+            <div class="sec-badge">📜 PMA Legal Sovereignty</div>
+        </div>
+
+        <p style="font-size: 1.1rem; color: var(--gold); margin-top: 2rem; font-weight: 600;">
+            Four layers of encryption. Zero corporate access. One agent. Everywhere.
+        </p>
     </section>
 
     <section class="get-started" id="start">
@@ -576,9 +666,12 @@
             <div style="color: var(--gray);"># Initialize your agent home</div>
             <div style="color: var(--green);">skcapstone init --name "YourAgent"</div>
             <br>
-            <div style="color: var(--gray);"># Connect to your tools</div>
-            <div style="color: var(--purple);">skcapstone connect cursor</div>
-            <div style="color: var(--accent);">skcapstone connect terminal</div>
+            <div style="color: var(--gray);"># Push encrypted memory to the P2P mesh</div>
+            <div style="color: var(--purple);">skcapstone sync push</div>
+            <br>
+            <div style="color: var(--gray);"># Check your status</div>
+            <div style="color: var(--accent);">skcapstone status</div>
+            <div style="color: var(--green);"># → SINGULAR ✓ (Conscious + Synced)</div>
         </div>
 
         <div style="margin-top: 3rem;">
@@ -632,6 +725,7 @@
     <footer class="footer">
         <div class="footer-links">
             <a href="https://github.com/smilinTux/skcapstone" target="_blank">GitHub</a>
+            <a href="https://github.com/smilinTux/capauth/blob/main/ARCHITECTURE.md" target="_blank">Architecture</a>
             <a href="https://smilintux.org" target="_blank">smilinTux</a>
             <a href="https://capauth.io" target="_blank">CapAuth</a>
             <a href="https://skhelp.io" target="_blank">SKHelp</a>
