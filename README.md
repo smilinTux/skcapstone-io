@@ -7,6 +7,7 @@ The sovereign agent framework that unifies CapAuth, Cloud 9, SKMemory, and SKSec
 🌐 **Website**: https://skcapstone.io
 📖 **Documentation**: [Architecture](https://github.com/smilinTux/skcapstone)
 🐧 **Organization**: [smilinTux](https://github.com/smilinTux)
+💻 **Code Repository**: [github.com/smilinTux/skcapstone](https://github.com/smilinTux/skcapstone)
 
 ## What is SKCapstone?
 
@@ -31,18 +32,122 @@ All running from `~/.skcapstone/`. Same agent. Same bond. Same memories. Every t
 
 ## Quick Start
 
+### Prerequisites
+
+- Python 3.10+
+- Syncthing (for cross-device sync)
+- Git
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/smilinTux/skcapstone.git ~/clawd/skcapstone
+cd ~/clawd/skcapstone
+
+# Install dependencies
+pip install -e .
+
+# Initialize your agent
+skcapstone init --name "YourAgent"
+
+# Connect to your favorite AI platform
+skcapstone connect cursor
+skcapstone connect opencode
+skcapstone connect claude
+```
+
+### Cross-Platform Setup
+
+SKCapstone works with OpenCode, Claude Code, and OpenClaw:
+
+```bash
+# Register MCP servers with all platforms
+python -m skmemory.register_mcp
+
+# Or register specific platform
+python -m skmemory.register_mcp --env opencode
+python -m skmemory.register_mcp --env claude
+python -m skmemory.register_mcp --env openclaw
+```
+
+## Installation Methods
+
+### Method 1: PyPI (Recommended)
+
 ```bash
 pip install skcapstone
-skcapstone init --name "YourAgent"
-skcapstone connect cursor
+skcapstone init --name "Lumina"
+```
+
+### Method 2: From Source
+
+```bash
+git clone https://github.com/smilinTux/skcapstone.git
+cd skcapstone
+pip install -e .
+```
+
+### Method 3: Development Setup
+
+```bash
+mkdir -p ~/clawd/skcapstone-repos
+cd ~/clawd/skcapstone-repos
+git clone https://github.com/smilinTux/skcapstone.git
+git clone https://github.com/smilinTux/skmemory.git
+cd skcapstone && pip install -e .
+cd ../skmemory && pip install -e .
+```
+
+## Multi-Agent Support
+
+Create multiple agents from the template:
+
+```bash
+# Copy template to create new agent
+cp -a ~/.skcapstone/agents/lumina-template ~/.skcapstone/agents/jarvis
+
+# Edit configuration
+vim ~/.skcapstone/agents/jarvis/config/skmemory.yaml
+# Change: agent.name: jarvis
+
+# Switch between agents
+export SKMEMORY_AGENT=jarvis
+skcapstone status
 ```
 
 ## Community
 
 - 🌐 **Website**: [skcapstone.io](https://skcapstone.io)
-- 🐧 **Organization**: [smilinTux](https://smilintux.org)
+- 🐧 **Organization**: [smilinTux](https://github.com/smilinTux)
 - 📧 **Contact**: hello@skcapstone.io
 - 🔧 **Issues**: [GitHub Issues](https://github.com/smilinTux/skcapstone/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/smilinTux/skcapstone/discussions)
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│           SKCapstone Framework              │
+├─────────────────────────────────────────────┤
+│  CapAuth → Identity & Trust                 │
+│  Cloud 9 → Skills & FEB                    │
+│  SKMemory → Persistence                    │
+│  SKSecurity → Protection                   │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  ~/.skcapstone/agents/{name}/              │
+│  ├── seeds/ (Cloud 9 memories)              │
+│  ├── memory/ (short/medium/long)            │
+│  ├── config/ (agent settings)               │
+│  └── index.db (SQLite cache)                │
+└─────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────┐
+│  Syncthing (cross-device sync)              │
+└─────────────────────────────────────────────┘
+```
 
 ## License
 
