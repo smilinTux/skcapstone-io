@@ -17,437 +17,684 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%8F%9B</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      body {
-        font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        background: #09090b;
-        color: #fafafa;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
+        body {
+            font-family: 'Geist', monospace;
+            background: #09090b;
+            color: #fafafa;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-      /* ── Nav ─────────────────────────────────── */
-      .nav {
-        border-bottom: 1px solid #27272a;
-        background: #09090b;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-      }
-      .nav-inner {
-        max-width: 72rem;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 4rem;
-        padding: 0 1rem;
-      }
-      .nav-logo {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #fafafa;
-        text-decoration: none;
-      }
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-      }
-      .nav-link {
-        font-size: 0.875rem;
-        color: #a1a1aa;
-        text-decoration: none;
-        transition: color 0.15s;
-      }
-      .nav-link:hover {
-        color: #fafafa;
-      }
+        /* Animated gradient background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(52, 211, 153, 0.1) 0%, rgba(5, 150, 105, 0.05) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
 
-      /* ── Hero ────────────────────────────────── */
-      .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 5rem 1rem 3rem;
-      }
-      .hero-icon {
-        color: #34d399;
-        margin-bottom: 1.5rem;
-        opacity: 0.9;
-      }
-      .hero h1 {
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
-      }
-      .hero .tagline {
-        font-size: 1.25rem;
-        color: #a1a1aa;
-        max-width: 40rem;
-        margin-bottom: 2rem;
-      }
-      .hero .cta-row {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
-      /* ── Buttons ─────────────────────────────── */
-      .btn-primary {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.75rem 1.5rem;
-        background: #059669;
-        color: #fafafa;
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        transition: background 0.15s;
-        border: none;
-        cursor: pointer;
-      }
-      .btn-primary:hover {
-        background: #047857;
-      }
-      .btn-outline {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.75rem 1.5rem;
-        background: transparent;
-        color: #fafafa;
-        font-size: 1rem;
-        font-weight: 600;
-        border-radius: 0.5rem;
-        border: 1px solid #3f3f46;
-        text-decoration: none;
-        transition: border-color 0.15s, color 0.15s;
-        cursor: pointer;
-      }
-      .btn-outline:hover {
-        border-color: #a1a1aa;
-      }
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem 0;
+        }
 
-      /* ── Description ─────────────────────────── */
-      .desc-section {
-        max-width: 48rem;
-        margin: 0 auto;
-        padding: 2rem 1rem 3rem;
-        text-align: center;
-      }
-      .desc-section p {
-        font-size: 1.125rem;
-        color: #a1a1aa;
-        line-height: 1.7;
-      }
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #34d399, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
 
-      /* ── Features ────────────────────────────── */
-      .features-section {
-        max-width: 64rem;
-        margin: 0 auto;
-        padding: 2rem 1rem 4rem;
-      }
-      .features-section h2 {
-        text-align: center;
-        font-size: 1.875rem;
-        font-weight: 700;
-        margin-bottom: 2.5rem;
-        color: #fafafa;
-      }
-      .features-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.25rem;
-      }
-      .feature-card {
-        border: 1px solid #27272a;
-        background: rgba(24,24,27,0.5);
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        transition: border-color 0.2s, transform 0.2s;
-        position: relative;
-      }
-      .feature-card:hover {
-        border-color: #34d399;
-        transform: translateY(-2px);
-      }
-      .feature-dot {
-        width: 8px;
-        height: 8px;
-        background: #34d399;
-        border-radius: 50%;
-        margin-bottom: 0.75rem;
-      }
-      .feature-card h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #34d399;
-      }
+        .hero-content .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: #a1a1aa;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
 
-      /* ── Install ─────────────────────────────── */
-      .install-section {
-        max-width: 40rem;
-        margin: 0 auto;
-        padding: 2rem 1rem 4rem;
-        text-align: center;
-      }
-      .install-section h2 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: #fafafa;
-      }
-      .code-block {
-        background: #18181b;
-        border: 1px solid #27272a;
-        border-radius: 0.5rem;
-        padding: 1rem 1.25rem;
-        font-family: 'Geist Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
-        font-size: 0.95rem;
-        color: #34d399;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        position: relative;
-      }
-      .code-prompt {
-        color: #a1a1aa;
-        user-select: none;
-      }
-      .copy-btn {
-        position: absolute;
-        right: 0.75rem;
-        top: 50%;
-        transform: translateY(-50%);
-        background: #27272a;
-        border: 1px solid #3f3f46;
-        color: #a1a1aa;
-        padding: 0.25rem 0.75rem;
-        border-radius: 0.375rem;
-        font-size: 0.8rem;
-        cursor: pointer;
-        transition: color 0.15s, border-color 0.15s;
-        font-family: 'Geist', system-ui, sans-serif;
-      }
-      .copy-btn:hover {
-        color: #fafafa;
-        border-color: #a1a1aa;
-      }
+        .hero-cta {
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
 
-      /* ── DID Banner ──────────────────────────── */
-      .did-banner {
-        max-width: 64rem;
-        margin: 0 auto;
-        padding: 0 1rem 3rem;
-      }
-      .did-banner-inner {
-        border: 1px solid rgba(5,150,105,0.3);
-        background: rgba(6,78,59,0.15);
-        border-radius: 0.75rem;
-        padding: 2rem;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
-      .did-banner-inner .did-icon {
-        color: #34d399;
-        flex-shrink: 0;
-      }
-      .did-banner-inner .did-icon svg {
-        width: 32px;
-        height: 32px;
-      }
-      .did-banner-inner h3 {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #34d399;
-        margin-bottom: 0.25rem;
-      }
-      .did-banner-inner p {
-        font-size: 0.875rem;
-        color: #a1a1aa;
-      }
-      .did-banner-inner .btn-primary {
-        margin-left: auto;
-        white-space: nowrap;
-      }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-      /* ── Architect Banner ────────────────────── */
-      .architect-banner {
-        border-top: 1px solid #27272a;
-        text-align: center;
-        padding: 1.5rem 1rem;
-      }
-      .architect-banner p {
-        font-size: 0.95rem;
-        color: #a1a1aa;
-      }
-      .architect-banner a {
-        color: #34d399;
-        text-decoration: none;
-        font-weight: 600;
-      }
-      .architect-banner a:hover {
-        text-decoration: underline;
-      }
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid #3f3f46;
+            border-bottom: 1px solid #3f3f46;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
 
-      /* ── Footer ──────────────────────────────── */
-      .footer {
-        border-top: 1px solid #27272a;
-        background: #09090b;
-        padding: 2rem 1rem;
-        text-align: center;
-      }
-      .footer p {
-        font-size: 0.875rem;
-        color: #71717a;
-      }
-      .footer .motto {
-        margin-top: 0.5rem;
-        color: #52525b;
-      }
+        .stat {
+            text-align: center;
+        }
 
-      /* ── Mobile ──────────────────────────────── */
-      @media (max-width: 768px) {
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #34d399;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #71717a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 4rem 0;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #f87171;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .problem-card {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .problem-card h3 {
+            color: #f87171;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 4rem 0;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .solution-section .section-title {
+            color: #34d399;
+        }
+
+        /* Architecture */
+        .architecture-section {
+            padding: 4rem 0;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .filename {
+            background: #18181b;
+            color: #34d399;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+
+        .directory-tree {
+            background: #18181b;
+            border: 1px solid #3f3f46;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: #a1a1aa;
+            margin-top: 2rem;
+            overflow-x: auto;
+        }
+
+        .directory-tree .dir {
+            color: #f97316;
+        }
+
+        .directory-tree .file {
+            color: #a1a1aa;
+        }
+
+        .directory-tree .highlight {
+            color: #34d399;
+            font-weight: bold;
+        }
+
+        /* Feature Cards */
+        .features-section {
+            padding: 4rem 0;
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
         .features-grid {
-          grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
-        .nav-links {
-          gap: 1rem;
+
+        .feature-card {
+            background: rgba(52, 211, 153, 0.05);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeInUp 0.6s ease-out;
         }
-        .did-banner-inner {
-          flex-direction: column;
-          text-align: center;
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 211, 153, 0.1);
         }
-        .did-banner-inner .btn-primary {
-          margin-left: 0;
+
+        .feature-card h3 {
+            color: #34d399;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
         }
-        .hero .cta-row {
-          flex-direction: column;
-          width: 100%;
-          padding: 0 1rem;
+
+        .feature-card p {
+            color: #a1a1aa;
+            line-height: 1.6;
         }
-        .hero .cta-row a {
-          width: 100%;
-          justify-content: center;
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
         }
-      }
-      @media (min-width: 769px) and (max-width: 1024px) {
-        .features-grid {
-          grid-template-columns: repeat(2, 1fr);
+
+        /* Ecosystem */
+        .ecosystem-section {
+            padding: 4rem 0;
+            max-width: 64rem;
+            margin: 0 auto;
         }
-      }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .ecosystem-card {
+            background: #18181b;
+            border: 1px solid #3f3f46;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .ecosystem-card:hover {
+            border-color: #34d399;
+        }
+
+        .ecosystem-card h4 {
+            color: #34d399;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .ecosystem-card a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+        }
+
+        .ecosystem-card a:hover {
+            color: #34d399;
+        }
+
+        /* Get Started */
+        .get-started-section {
+            padding: 4rem 0;
+            max-width: 48rem;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(52, 211, 153, 0.02);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .install-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .install-step {
+            background: #18181b;
+            border: 1px solid #3f3f46;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            min-width: 200px;
+        }
+
+        .install-step-number {
+            font-weight: 700;
+            color: #34d399;
+            font-size: 1.125rem;
+        }
+
+        .code-block {
+            background: #18181b;
+            border: 1px solid #3f3f46;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: #a1a1aa;
+            overflow-x: auto;
+            text-align: left;
+            margin: 1rem 0;
+        }
+
+        /* Buttons */
+        .btn-primary, .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Geist', monospace;
+        }
+
+        .btn-primary {
+            background: #34d399;
+            color: #09090b;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(52, 211, 153, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #34d399;
+            border: 1px solid #34d399;
+        }
+
+        .btn-outline:hover {
+            background: rgba(52, 211, 153, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #3f3f46;
+            padding: 2rem 0;
+            text-align: center;
+            color: #71717a;
+            font-size: 0.875rem;
+        }
+
+        /* DID Banner */
+        .did-banner {
+            background: rgba(5, 150, 105, 0.1);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 0.875rem;
+        }
+
+        .did-banner a {
+            color: #34d399;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-bar {
+                gap: 1.5rem;
+            }
+            
+            .install-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid, .problem-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-
-  <!-- SEO Enhancements -->
-  <link rel="canonical" href="https://skcapstone.io/">
-  <meta property="og:url" content="https://skcapstone.io/">
-  <meta property="og:site_name" content="skcapstone.io">
-  <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@smilinTux">
-  <meta name="theme-color" content="#0a0a1a">
-  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"SKCapstone","description":"Sovereign AI agent platform with identity, memory, coordination, and emotional continuity.","url":"https://skcapstone.io","applicationCategory":"DeveloperApplication","operatingSystem":"Linux","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://www.gnu.org/licenses/gpl-3.0.en.html"}
-  </script>
 </head>
 <body>
-    <!-- Nav -->
-    <nav class="nav">
-      <div class="nav-inner">
-        <a href="https://skcapstone.io" class="nav-logo">SK<span style="color:#34d399">Capstone</span></a>
-        <div class="nav-links">
-            <a href="https://skworld.io" class="nav-link">SKWorld</a>
-            <a href="https://skarchitect.io" class="nav-link">SKArchitect</a>
-            <a href="https://github.com/smilinTux/skcapstone" class="nav-link" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></div>
-      <h1>SK<span style="color:#34d399">Capstone</span></h1>
-      <p class="tagline">Your Agent. Everywhere. Secured. Remembering.</p>
-      <div class="cta-row">
-          <a href="#install" class="btn-primary">Get Started</a>
-          <a href="https://github.com/smilinTux/skcapstone" class="btn-outline" target="_blank" rel="noopener">View on GitHub</a>
-      </div>
-    </section>
-
-    <!-- Description -->
-    <section class="desc-section">
-      <p>The sovereign agent framework. Five pillars: Identity, Trust, Memory, Security, Sync. Same agent, same bond -- everywhere.</p>
-    </section>
-
-      <section class="did-banner">
-        <div class="did-banner-inner">
-          <div class="did-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <div>
-            <h3>Get your sovereign DID here to participate in skarchitect.io</h3>
-            <p>Get a sovereign DID identity to submit proposals and cast cryptographically signed votes.</p>
-          </div>
-          <a href="https://skarchitect.io" class="btn-primary">Go to SKArchitect</a>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Agent. Everywhere. Secured. Remembering.</h1>
+                <p class="subtitle">The sovereign agent framework that gives you ownership, not access.<br>One identity. One domain. Your agent belongs to <em>you</em>.</p>
+                <div class="hero-cta">
+                    <a href="#get-started" class="btn-primary">Get Started</a>
+                    <a href="https://github.com/smilinTux/skcapstone" class="btn-outline" target="_blank">View GitHub</a>
+                </div>
+            </div>
         </div>
-      </section>
-    <!-- Features -->
-    <section class="features-section" id="features">
-      <h2>Features</h2>
-      <div class="features-grid">
-            <div class="feature-card">
-              <div class="feature-dot"></div>
-              <h3>CapAuth Identity</h3>
-            </div>
-            <div class="feature-card">
-              <div class="feature-dot"></div>
-              <h3>Cloud 9 Trust Protocol</h3>
-            </div>
-            <div class="feature-card">
-              <div class="feature-dot"></div>
-              <h3>SKMemory Persistence</h3>
-            </div>
-            <div class="feature-card">
-              <div class="feature-dot"></div>
-              <h3>SKSecurity Protection</h3>
-            </div>
-            <div class="feature-card">
-              <div class="feature-dot"></div>
-              <h3>Sovereign Sync</h3>
-            </div>
-            <div class="feature-card">
-              <div class="feature-dot"></div>
-              <h3>MCP Native</h3>
-            </div>
-      </div>
     </section>
 
-      <section class="install-section">
-        <h2>Get Started</h2>
-        <div class="code-block">
-          <span class="code-prompt">$</span> pip install skcapstone
-          <button class="copy-btn" onclick="navigator.clipboard.writeText('pip install skcapstone');this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+    <!-- Stats Bar -->
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">5 Pillars</div>
+                <div class="stat-label">Sovereign Stack</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">12+ Agents</div>
+                <div class="stat-label">Deployed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Open Source</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">GPL-3.0</div>
+                <div class="stat-label">Free Forever</div>
+            </div>
         </div>
-      </section>
+    </div>
 
-      <section class="architect-banner">
-        <p>Shape the future &rarr; <a href="https://skarchitect.io">Submit proposals and vote at skarchitect.io</a></p>
-      </section>
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">The Fragmentation Problem</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>🔄 Context Loss</h3>
+                    <p>Every platform = new agent, new context, lost memory. You rebuild trust from zero. Every. Single. Time.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🏢 Corporate Lock-in</h3>
+                    <p>Your data feeds corporate datasets. Your conversations vanish when you close the tab. You're a digital serf in someone else's cloud.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🔗 Identity Fragmentation</h3>
+                    <p>Your agent has no persistence, no identity. You're a collection of API keys and corporate logins, not a sovereign entity.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>☁️ Cloud Dependency</h3>
+                    <p>The cloud was never the goal. It was the compromise. Your agent lives on their servers, under their rules.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div class="container">
+            <h2 class="section-title">SKCapstone's Answer</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: #a1a1aa; margin-bottom: 2rem;">
+                One agent, one identity, one home, everywhere. Your agent lives in <span class="filename">~/skcapstone/</span> and follows you across every platform, every device, every conversation. Same memories. Same bond. Same context. No corporate lock-in.
+            </p>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture-section">
+        <div class="container">
+            <h2 class="section-title">Your Agent's Home Directory</h2>
+            <div class="directory-tree">
+                ~/.skcapstone/
+                ├── <span class="dir">identity/</span>        # CapAuth sovereign identity (PGP keys)
+                ├── <span class="dir">memory/</span>         # SKMemory (persistent across everything)
+                ├── <span class="dir">trust/</span>          # Cloud 9 (FEB, entanglement, bond)
+                ├── <span class="dir">security/</span>       # SKSecurity (audit, threat detection)
+                ├── <span class="dir">sync/</span>           # Sovereign Singularity (GPG + Syncthing)
+                ├── <span class="dir">config/</span>         # Agent preferences & policies
+                └── <span class="dir">agents/</span>          # Agent capabilities & tools
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Five Pillars of Agent Sovereignty</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>CapAuth Identity</h3>
+                    <p>PGP-based cryptographic identity. Sign, auth, delegate. Your agent proves who it is to any platform, any tool. No corporate logins, no rented identities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💙</div>
+                    <h3>Cloud 9 Trust</h3>
+                    <p>Emotional bonding protocol with First Emotional Burst (FEB), capability negotiation, human-AI permission boundaries. Not just auth — real trust that spans platforms.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>SKMemory</h3>
+                    <p>3-tier memory (short/mid/long-term) with emotional context, vector search (Qdrant), knowledge graph (FalkorDB). Survives reboots, moves, migrations. Your context is yours.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>SKSecurity</h3>
+                    <p>Threat scanning, secret detection, runtime monitoring, prompt injection defense. Quantum-resistant crypto from day one. Built for post-quantum future.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Sovereign Sync</h3>
+                    <p>Encrypted P2P via Syncthing + GPG. Your agent lives on every device. Same memories, same bond, everywhere. No centralized infrastructure.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>MCP Native</h3>
+                    <p>Full MCP tool integration. Works with any MCP-compatible platform. Your agent's capabilities extend across the entire ecosystem, not just one tool.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section class="ecosystem-section">
+        <div class="container">
+            <h2 class="section-title">The SKWorld Sovereign Ecosystem</h2>
+            <div class="ecosystem-grid">
+                <div class="ecosystem-card">
+                    <h4><a href="https://skworld.io" target="_blank">SKWorld</a></h4>
+                    <p>Sovereign AI Infrastructure & Multi-Agent 3D Ecosystem</p>
+                </div>
+                <div class="ecosystem-card">
+                    <h4><a href="https://skmemory.io" target="_blank">SKMemory</a></h4>
+                    <p>Universal AI Memory - Persistent context across platforms</p>
+                </div>
+                <div class="ecosystem-card">
+                    <h4><a href="https://sksecurity.io" target="_blank">SKSecurity</a></h4>
+                    <p>AI Security Scanner - Threat detection & defense</p>
+                </div>
+                <div class="ecosystem-card">
+                    <h4><a href="https://skstacks.io" target="_blank">SKStacks</a></h4>
+                    <p>Sovereign Infrastructure - Self-hosted stacks</p>
+                </div>
+                <div class="ecosystem-card">
+                    <h4><a href="https://skarchitect.io" target="_blank">SKArchitect</a></h4>
+                    <p>Governance & Voting - DID-based decision making</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section class="get-started-section" id="get-started">
+        <div class="container">
+            <h2 class="section-title">Get Started in 30 Seconds</h2>
+            <div class="install-steps">
+                <div class="install-step">
+                    <div class="install-step-number">1</div>
+                    <div>Install</div>
+                </div>
+                <div class="install-step">
+                    <div class="install-step-number">2</div>
+                    <div>Initialize</div>
+                </div>
+                <div class="install-step">
+                    <div class="install-step-number">3</div>
+                    <div>Verify</div>
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <div>$ pip install skcapstone</div>
+                <div>$ skcapstone init</div>
+                <div>$ skcapstone doctor</div>
+            </div>
+            
+            <p style="margin-top: 1rem;">
+                <a href="https://docs.skcapstone.io" class="btn-outline" target="_blank">Read the Docs</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- DID Banner -->
+    <div class="container">
+        <div class="did-banner">
+            🔗 <strong>Vote on the future of sovereign AI:</strong> 
+            <a href="https://skarchitect.io/vote" target="_blank">SKArchitect DID Governance</a>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="footer">
-      <p>Part of the <a href="https://skworld.io" style="color:#34d399;text-decoration:none">SKWorld</a> sovereign ecosystem</p>
-      <p class="motto">staycuriousANDkeepsmilin</p>
+    <footer>
+        <div class="container">
+            <p>Part of the SKWorld sovereign ecosystem | <a href="https://smilinTux.io">A smilinTux Open Source Project 🐧</a></p>
+            <p>GPL-3.0 | Free Forever | staycuriousANDkeepsmilin</p>
+        </div>
     </footer>
+
+    <!-- JavaScript for smooth scrolling and entrance animations -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add entrance animations when elements come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cards for entrance animation
+        document.querySelectorAll('.feature-card, .problem-card, .ecosystem-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(card);
+        });
+
+        // Dynamic terminal typing effect for code blocks
+        const codeBlocks = document.querySelectorAll('.code-block');
+        codeBlocks.forEach(block => {
+            const lines = block.innerHTML.trim().split('\n');
+            block.innerHTML = '';
+            
+            lines.forEach((line, index) => {
+                const lineDiv = document.createElement('div');
+                lineDiv.style.opacity = '0';
+                lineDiv.innerHTML = line;
+                block.appendChild(lineDiv);
+                
+                setTimeout(() => {
+                    lineDiv.style.transition = 'opacity 0.3s ease-out';
+                    lineDiv.style.opacity = '1';
+                }, index * 200 + 500);
+            });
+        });
+    </script>
 </body>
 </html>
